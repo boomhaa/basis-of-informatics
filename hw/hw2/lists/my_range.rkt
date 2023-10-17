@@ -1,0 +1,5 @@
+(define (my-range a b d)
+  (if (>= a b)
+      (list)
+      (cons a (my-range (+ a d) b d)))
+  )

@@ -1,0 +1,7 @@
+(define (my-filter pred? xs)
+  (if (null? xs)
+      (list)
+      (if (pred? (car xs))
+          (cons (car xs) (my-filter pred? (cdr xs)))
+          (my-filter pred? (cdr xs))))
+  )

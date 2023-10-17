@@ -1,0 +1,5 @@
+(define (my-fold-left op xs)
+  (if (= (length xs) 1)
+      (car xs)
+      (my-fold-left op (cons (op (car xs) (cadr xs)) (cddr xs))))
+  )
