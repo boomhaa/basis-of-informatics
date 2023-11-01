@@ -48,12 +48,3 @@
             ((equal? 'if word) (interpretator (if (= (car stack) 0) (+ (find-word 'endif index program)) (+ index 1)) (cdr stack) return-stack def-stack))
             ((equal? 'endif word) (interpretator (+ index 1) stack return-stack def-stack))
             (else (interpretator (cadr (assoc word def-stack)) stack (cons (+ index 1) return-stack) def-stack)))))))
-
-(interpret #(   define =0? dup 0 = end
-                define gcd
-                    =0? if drop exit endif
-                    swap over mod
-                    gcd
-                end
-                90 99 gcd
-                234 8100 gcd    ) '())
