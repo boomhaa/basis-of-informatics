@@ -1,7 +1,2 @@
 (define (my-element? x xs)
-(if (null? xs)
-    #f
-    (if (equal? x (car xs))
-        #t
-        (my-element? x (cdr xs))))
-  )
+  (and (not (null? xs)) (or (equal? (car xs) x) (my-element? x (cdr xs)))))
