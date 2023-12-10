@@ -1,9 +1,3 @@
-(define ariphmetic '(+ - * / mod))
-(define conditions '(< > =))
-
-(define (my-eval expr)
-  (eval expr (interaction-environment)))
-
 (define (find-word word index program)
   (if (equal? word (vector-ref program index))
       index
@@ -16,14 +10,6 @@
           #t
           (contains? (cdr stack) sign))))
 
-(define (ariph-oper oper stack)
-  (if (equal? oper 'mod)
-      (cons (remainder (cadr stack) (car stack)) (cddr stack))
-      (cons (my-eval (list oper (cadr stack) (car stack))) (cddr stack))))
-
-(define (cond-oper oper stack)
-  (cons (if (my-eval (list oper (cadr stack) (car stack))) -1 0) (cddr stack)))
-
 (define (interpret program init-stack)
   (let interpretator ((index 0) (stack init-stack)(return-stack '()) (def-stack '()))
     (if (= index (vector-length program))
@@ -31,8 +17,14 @@
         (let ((word (vector-ref program index)))
           (cond
             ((number? word)(interpretator (+ index 1) (cons word stack) return-stack def-stack))
-            ((contains? ariphmetic word) (interpretator (+ index 1) (ariph-oper word stack) return-stack def-stack))
-            ((contains? conditions word) (interpretator (+ index 1) (cond-oper word stack) return-stack def-stack))
+            ((equal? word '+)(interpretator (+ index 1) (cons (+ (cadr stack) (car stack)) (cddr stack)) return-stack def-stack))
+            ((equal? word '-)(interpretator (+ index 1) (cons (- (cadr stack) (car stack)) (cddr stack)) return-stack def-stack))
+            ((equal? word '/)(interpretator (+ index 1) (cons (quotient (cadr stack) (car stack)) (cddr stack)) return-stack def-stack))
+            ((equal? word '*)(interpretator (+ index 1) (cons (* (cadr stack) (car stack)) (cddr stack)) return-stack def-stack))
+            ((equal? word 'mod)(interpretator (+ index 1) (cons (remainder (cadr stack) (car stack)) (cddr stack)) return-stack def-stack))
+            ((equal? word '<)(interpretator (+ index 1) (cons (if (< (cadr stack) (car stack)) -1 0) (cddr stack)) return-stack def-stack))
+            ((equal? word '>)(interpretator (+ index 1) (cons (if (> (cadr stack) (car stack)) -1 0) (cddr stack)) return-stack def-stack))
+            ((equal? word '=)(interpretator (+ index 1) (cons (if (= (cadr stack) (car stack)) -1 0) (cddr stack)) return-stack def-stack))
             ((equal? word 'and) (interpretator (+ index 1) (cons (if (or (= (car stack) 0) (= (cadr stack) 0)) 0 -1) (cddr stack)) return-stack def-stack))
             ((equal? word 'or) (interpretator (+ index 1) (cons (if (and (= (car stack) 0) (= (cadr stack) 0)) 0 -1) (cddr stack)) return-stack def-stack))
             ((equal? word 'not) (interpretator (+ index 1) (cons (if (= (car stack) 0) -1 0) (cdr stack)) return-stack def-stack))
