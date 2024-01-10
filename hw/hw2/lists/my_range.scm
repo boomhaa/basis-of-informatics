@@ -3,3 +3,4 @@
       (list)
       (cons a (my-range (+ a d) b d)))
   )
+;O((b-a)/d)

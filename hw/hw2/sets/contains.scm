@@ -1,6 +1,2 @@
 (define (contains? sym xs)
-  (if (null? xs)
-      #f
-      (if (equal? (car xs) sym)
-          #t
-          (contains? sym (cdr xs)))))
+  (and (not (null? xs)) (or (equal? (car xs) sym) (contains? sym (cdr xs)))))

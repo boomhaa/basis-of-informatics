@@ -1,6 +1,5 @@
 (load "symmetric-difference.scm")
 
 (define (set-eq? xs ys)
-  (if (= (length (symmetric-difference xs ys)) 0)
-      #t
-      #f))
+  (= (length (symmetric-difference xs ys)) 0))
+;O(n^2+m^2)

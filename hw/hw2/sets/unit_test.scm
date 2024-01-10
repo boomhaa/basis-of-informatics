@@ -1,5 +1,3 @@
-;;2.unit test
-
 (define-syntax test
   (syntax-rules ()
     ((test action res) '(action res)))

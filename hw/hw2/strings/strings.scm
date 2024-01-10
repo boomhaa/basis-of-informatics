@@ -1,6 +1,8 @@
+;O(n)
 (define (str-reverse str)
   (list->string (reverse (string->list str))))
 
+;O(n)
 (define (string-trim-left str)
   (define (help lstr)
     (if (null? lstr)
@@ -10,12 +12,15 @@
             (list->string lstr))))
   (help (string->list str)))
 
+;O(n)
 (define (string-trim-right str)
   (str-reverse (string-trim-left (str-reverse str))))
 
+;O(n)
 (define (string-trim str)
   (string-trim-right (string-trim-left str)))
 
+;O(m + n)
 (define (string-prefix? pref str)
   (define (help lpref lstr)
     (if (or (null? lpref) (null? lstr))
@@ -25,21 +30,22 @@
             #f)))
   (help (string->list pref) (string->list str)))
 
+;O(m + n)
 (define (string-suffix? suf str)
   (string-prefix? (str-reverse suf) (str-reverse str)))
 
-
+;O(m * n)
 (define (string-infix? podstr str)
   (or (null? (string->list podstr)) (and (not (null? (string->list str))) (or (string-prefix? podstr str)
       (string-infix? podstr
                      (list->string (cdr (string->list str))))))))
-
-
+;O(m + n)
 (define (delete-prefix pref str)
   (if (or (null? pref) (null? str))
       str
       (delete-prefix (cdr pref) (cdr str))))
 
+;O(n * m)
 (define (string-split str sep)
   (define (help lstr as)
     (if (null? lstr)
@@ -49,4 +55,5 @@
                   (help (delete-prefix  (string->list sep) lstr) '()))
             (help (cdr lstr) (append as (list (car lstr)))))))
   (help (string->list str) '()))
-  
+
+

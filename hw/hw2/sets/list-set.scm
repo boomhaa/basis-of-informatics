@@ -8,3 +8,4 @@
             (helper (cdr arr) new-arr)
             (helper (cdr arr) (cons (car arr) new-arr)))))
   (helper xs '()))
+;O(n^2)

@@ -5,3 +5,4 @@
           (cons (car xs) (my-filter pred? (cdr xs)))
           (my-filter pred? (cdr xs))))
   )
+;O(n)

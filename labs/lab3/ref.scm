@@ -1,3 +1,5 @@
+;;3.ref
+
 (define (ref xs index . val)
   (define (ref-get xs index)
     (cond
@@ -16,10 +18,12 @@
             (append (first-n-elem xs index) (list val) (list-tail xs index))))
       ((vector? xs)
        (and (>= (vector-length xs) index)
-            (list->vector (append (first-n-elem (vector->list xs) index) (list val) (list-tail (vector->list xs) index)))))
+            (list->vector (append (first-n-elem (vector->list xs) index)
+                                  (list val) (list-tail (vector->list xs) index)))))
       ((string? xs)
        (and (>= (string-length xs) index)
-            (list->string (append (first-n-elem (string->list xs) index) (list val) (list-tail (string->list xs) index)))))
+            (list->string (append (first-n-elem (string->list xs) index)
+                                  list val) (list-tail (string->list xs) index)))))
       ))
   (define (first-n-elem xs n)
     (if (= n 0)

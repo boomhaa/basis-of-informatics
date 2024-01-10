@@ -8,3 +8,4 @@
             (helper (cdr x) y diff)
             (helper (cdr x) y (cons (car x) diff)))))
   (helper xs ys '()))
+;O(n^2)

@@ -2,5 +2,5 @@
   (if (null? xs) 0
       (if (equal? x (car xs))
           (+ 1 (count x (cdr xs)))
-          (count x (cdr x))))
+          (count x (cdr xs))))
       )

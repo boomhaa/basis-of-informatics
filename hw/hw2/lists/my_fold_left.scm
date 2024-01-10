@@ -3,3 +3,4 @@
       (car xs)
       (my-fold-left op (cons (op (car xs) (cadr xs)) (cddr xs))))
   )
+;O(n^2)
